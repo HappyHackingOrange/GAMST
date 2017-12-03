@@ -1,5 +1,3 @@
-/* SinglyLinkedList.java */
-
 /**
  * Creates a singly linked list which each node only points to next node.
  *
@@ -7,11 +5,11 @@
  * 
  **/
 
-public class SinglyLinkedList<E> {
+public class SinglyLinkedList<Item> {
 
 	// Instance variables
-	private SinglyLinkedListNode<E> head;
-	private SinglyLinkedListNode<E> tail;
+	private SinglyLinkedListNode<Item> head;
+	private SinglyLinkedListNode<Item> tail;
 	private int size;
 
 	// Instance methods
@@ -27,29 +25,29 @@ public class SinglyLinkedList<E> {
 	}
 
 	// Adds a node to the front of the list.
-	public void insertFront(E e) {
-		head = new SinglyLinkedListNode<E>(e, head);
+	public void insertFront(Item item) {
+		head = new SinglyLinkedListNode<Item>(item, head);
 		if (tail == null)
 			tail = head;
 		size++;
 	}
 
 	// Adds a node to the back of the list.
-	public void insertEnd(E e) {
+	public void insertEnd(Item item) {
 		if (head == null)
-			tail = head = new SinglyLinkedListNode<E>(e);
+			tail = head = new SinglyLinkedListNode<Item>(item);
 		else {
-			tail.next = new SinglyLinkedListNode<E>(e);
+			tail.next = new SinglyLinkedListNode<Item>(item);
 			tail = tail.next;
 		}
 		size++;
 	}
 
 	// Removes a node from the front of the list.
-	public E removeFront() {
+	public Item removeFront() {
 		if (isEmpty())
 			return null;
-		SinglyLinkedListNode<E> temp = head;
+		SinglyLinkedListNode<Item> temp = head;
 		head = (size == 1) ? null : temp.next;
 		size--;
 		return temp.item;

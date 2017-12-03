@@ -1,5 +1,3 @@
-/* SinglyLinkedListNode.java */
-
 /**
  * Implements a node that stores an item and a pointer to the next node in the
  * singly linked list.
@@ -8,35 +6,35 @@
  * 
  */
 
-public class SinglyLinkedListNode<E> {
+public class SinglyLinkedListNode<Item> {
 
 	// Instance variables
-	E item;
-	SinglyLinkedListNode<E> next;
+	Item item;
+	SinglyLinkedListNode<Item> next;
 
 	// Constructors
 
 	// Creates a node containing an item and not pointing to next root.
-	public SinglyLinkedListNode(E e) {
-		item = e;
+	public SinglyLinkedListNode(Item item) {
+		this.item = item;
 		next = null;
 	}
 
 	// Creates a node containing an item and is pointing to next node.
-	public SinglyLinkedListNode(E e, SinglyLinkedListNode<E> next) {
-		item = e;
+	public SinglyLinkedListNode(Item item, SinglyLinkedListNode<Item> next) {
+		this.item = item;
 		this.next = next;
 	}
 
 	// Instance methods
 
 	// Item getter
-	public E getItem() {
+	public Item getItem() {
 		return item;
 	}
 
 	// Next getter
-	public SinglyLinkedListNode<E> getNext() {
+	public SinglyLinkedListNode<Item> getNext() {
 		return next;
 	}
 
