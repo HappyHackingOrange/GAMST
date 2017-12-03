@@ -8,35 +8,35 @@
  * 
  */
 
-public class SinglyLinkedListNode {
+public class SinglyLinkedListNode<E> {
 
 	// Instance variables
-	Object item;
-	SinglyLinkedListNode next;
+	E item;
+	SinglyLinkedListNode<E> next;
 
 	// Constructors
-	
+
 	// Creates a node containing an item and not pointing to next root.
-	public SinglyLinkedListNode(Object obj) {
-		item = obj;
+	public SinglyLinkedListNode(E e) {
+		item = e;
 		next = null;
 	}
 
 	// Creates a node containing an item and is pointing to next node.
-	public SinglyLinkedListNode(Object obj, SinglyLinkedListNode next) {
-		item = obj;
+	public SinglyLinkedListNode(E e, SinglyLinkedListNode<E> next) {
+		item = e;
 		this.next = next;
 	}
 
 	// Instance methods
 
-	// Item getter 
-	public Object getItem() {
+	// Item getter
+	public E getItem() {
 		return item;
 	}
 
 	// Next getter
-	public SinglyLinkedListNode getNext() {
+	public SinglyLinkedListNode<E> getNext() {
 		return next;
 	}
 

@@ -7,11 +7,11 @@
  * 
  **/
 
-public class SinglyLinkedList {
+public class SinglyLinkedList<E> {
 
 	// Instance variables
-	private SinglyLinkedListNode head;
-	private SinglyLinkedListNode tail; 
+	private SinglyLinkedListNode<E> head;
+	private SinglyLinkedListNode<E> tail;
 	private int size;
 
 	// Instance methods
@@ -27,33 +27,32 @@ public class SinglyLinkedList {
 	}
 
 	// Adds a node to the front of the list.
-	public void insertFront(Object obj) {
-		head = new SinglyLinkedListNode(obj, head);
-		if (tail == null) 
+	public void insertFront(E e) {
+		head = new SinglyLinkedListNode<E>(e, head);
+		if (tail == null)
 			tail = head;
 		size++;
 	}
 
 	// Adds a node to the back of the list.
-	public void insertEnd(Object obj) {
-		if (head == null) 
-			tail = head = new SinglyLinkedListNode(obj);
+	public void insertEnd(E e) {
+		if (head == null)
+			tail = head = new SinglyLinkedListNode<E>(e);
 		else {
-			tail.next = new SinglyLinkedListNode(obj); 
-			tail = tail.next; 
+			tail.next = new SinglyLinkedListNode<E>(e);
+			tail = tail.next;
 		}
 		size++;
 	}
 
 	// Removes a node from the front of the list.
-	public Object removeFront() {
+	public E removeFront() {
 		if (isEmpty())
 			return null;
-		SinglyLinkedListNode temp = head;
+		SinglyLinkedListNode<E> temp = head;
 		head = (size == 1) ? null : temp.next;
 		size--;
 		return temp.item;
 	}
-
 
 }
