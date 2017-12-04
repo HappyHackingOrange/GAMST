@@ -45,6 +45,7 @@ public class Graph {
 		adjacencyList.get(source).add(pair);
 	}
 
+
 	
 	
 	
@@ -99,7 +100,6 @@ public class Graph {
 	public void DFS(Graph graph, double weight, int vertex) {
 
 	}
-
 	
 	
 	
@@ -108,11 +108,18 @@ public class Graph {
 	 * slides
 	 * Each pair should have the property of the boolean "reached" to determine if it
 	 * has been explored or not.
+	*
+	 * Prim's algorithm based on what the Professor has given according to the
+	 * slides
 	 * 
 	 * @param graph
 	 * @param weight
 	 * @param vertex
 	 */
+
+
+
+
 	public Graph Prim(double weight, int vertex) {
 		// Queue of vertices
 		Graph mingraph = new Graph();
@@ -183,8 +190,7 @@ public class Graph {
 	
 	
 	/**
-	 * Sort the edges in descending order according to their weights for each edge
-	 * 
+	 * Sort the edges in descending order according to their weights for each edge 
 	 * @param graph
 	 * @param weight
 	 * @param vertex
