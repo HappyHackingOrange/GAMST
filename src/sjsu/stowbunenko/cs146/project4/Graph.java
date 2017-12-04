@@ -1,5 +1,5 @@
 package sjsu.stowbunenko.cs146.project4;
-
+import java.io.File;
 import java.util.*;
 
 /**
@@ -24,7 +24,57 @@ public class Graph {
 	 *            the weight on the edge between vertices u and v
 	 */
 	public void addEdge(int source, int destination, double weight) {
-		// TODO
+		// Incomplete
+		Pair<Integer, Double> pair = new Pair<Integer, Double>(destination, weight);
+		adjacencyList.get(source).add(pair);
+	}
+
+	/**
+	 * This finds the neighbors of the source
+	 * 
+	 * @return an ArrayList of neighbors from the source
+	 */
+	public ArrayList<Integer> findNeighbors(int source) {
+		// Incomplete
+		ArrayList<Integer> neighbors = new ArrayList<Integer>();
+		return neighbors;
+	}
+
+	/**
+	 * 
+	 */
+	public void load() {
+		File tinyEWG = new File("WeightedGraphExamples/tinyEWG.txt");
+	}
+
+	/**
+	 * Explores all the vertices in the order of exploring the newly discovered vertext
+	 */
+	public void DFS(Graph graph, double weight, int vertex) {
+
+	}
+
+	/**
+	 * Prim's algorithm based on what the Professor has given according to the
+	 * slides
+	 * 
+	 * @param graph
+	 * @param weight
+	 * @param vertex
+	 */
+	public Graph Prim(Graph graph, double weight, int vertex) {
+		return graph;
+	}
+
+	/**
+	 * Sort the edges in descending order according to their weights for each edge 
+	 * @param graph
+	 * @param weight
+	 * @param vertex
+	 * 
+	 */
+	public void newAlgorithm(Graph graph, double weight, int vertex) {
+
 	}
 
 	/**
