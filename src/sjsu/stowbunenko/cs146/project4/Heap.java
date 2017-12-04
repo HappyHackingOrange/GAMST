@@ -1,7 +1,5 @@
 package sjsu.stowbunenko.cs146.project4;
 
-import java.util.*;
-
 /**
  * A min-heap structure, represented by an array.
  * 
@@ -11,21 +9,18 @@ import java.util.*;
 public class Heap {
 
 	private int[] array;
-	private int size; // current size
-	private int capacity; // max possible size
+	private int size; // the size of the heap with valid elements (not the length of the array)
 
 	// Constructors
 
 	public Heap(int capacity) {
 		array = new int[capacity];
 		size = 0;
-		this.capacity = capacity;
 	}
 
 	public Heap(int[] array) {
 		this.array = array;
 		size = array.length;
-		capacity = size;
 	}
 
 	// Getters and setters
@@ -36,6 +31,10 @@ public class Heap {
 
 	public void setArray(int[] array) {
 		this.array = array;
+	}
+
+	public int getSize() {
+		return size;
 	}
 
 	/**
@@ -56,7 +55,7 @@ public class Heap {
 	 *            the index i of the node
 	 * @return the index of the left child
 	 */
-	public static int getLeft(int i) {
+	public static int getLeftChild(int i) {
 		return 2 * i + 1;
 	}
 
@@ -67,29 +66,65 @@ public class Heap {
 	 *            the index i of the node
 	 * @return the index of the right child
 	 */
-	public static int getRight(int i) {
+	public static int getRightChild(int i) {
 		return 2 * i + 2;
 	}
 
 	/**
+	 * Swaps two heap nodes at index1 and index2.
+	 * 
+	 * @param index1
+	 * @param index2
+	 */
+	public void swap(int index1, int index2) {
+		int temp = array[index1];
+		array[index1] = array[index2];
+		array[index2] = temp;
+	}
+
+	/**
 	 * Maintain min-heap property at subtree starting at index i.
+	 * 
+	 * @param index
 	 */
 	public void heapify(int index) {
-		// TODO
+		int leftChild = getLeftChild(index);
+		int rightChild = getRightChild(index);
+		int smallest = (leftChild <= size && array[leftChild] < array[index]) ? leftChild : index;
+		if (rightChild <= size - 1 && array[rightChild] < array[smallest])
+			smallest = rightChild;
+		if (smallest != index) {
+			swap(index, smallest);
+			heapify(smallest);
+		}
 	}
 
 	/**
 	 * Produce min-heap from unordered input array.
+	 * 
+	 * @param array
+	 *            the unordered input array
 	 */
 	public void build(int[] array) {
-		// TODO
+		size = array.length;
+		System.arraycopy(array, 0, this.array, 0, size);
+		for (int i = size / 2 - 1; i >= 0; i--)
+			heapify(i);
 	}
 
 	/**
-	 * Sorts the array in place.
+	 * Decreases the value of the key to a new value.
+	 * 
+	 * @param key
 	 */
-	public void sort() {
-		// TODO
+	public void decreaseKey(int i, int newValue) {
+		if (newValue > array[i])
+			throw new Error("new key is larger than current key");
+		array[i] = newValue;
+		while (i > 0 && array[getParent(i)] > array[i]) {
+			swap(i, getParent(i));
+			i = getParent(i);
+		}
 	}
 
 	/**
@@ -99,7 +134,8 @@ public class Heap {
 	 *            the element to be inserted in the heap
 	 */
 	public void insert(int element) {
-		// TODO
+		array[++size - 1] = Integer.MAX_VALUE;
+		decreaseKey(size - 1, element);
 	}
 
 	/**
@@ -117,21 +153,12 @@ public class Heap {
 	 * @return the extracted minimum element.
 	 */
 	public int extractMin() {
-		if (array.length < 1) {
-			throw new java.lang.Error("heap underflow");
-		}
-		int max = array[0];
-		// TODO
-		return max;
-	}
-
-	/**
-	 * Decreases the value of the key to a new value.
-	 * 
-	 * @param key
-	 */
-	public void decreaseKey(int i, int newValue) {
-		// TODO
+		if (array.length < 1)
+			throw new Error("heap underflow");
+		int min = array[0];
+		array[0] = array[--size];
+		heapify(0);
+		return min;
 	}
 
 }
