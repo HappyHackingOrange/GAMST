@@ -14,11 +14,28 @@ public class Heap {
 	private int size; // current size
 	private int capacity; // max possible size
 
-	// Constructor
+	// Constructors
+
 	public Heap(int capacity) {
 		array = new int[capacity];
 		size = 0;
 		this.capacity = capacity;
+	}
+
+	public Heap(int[] array) {
+		this.array = array;
+		size = array.length;
+		capacity = size;
+	}
+
+	// Getters and setters
+
+	public int[] getArray() {
+		return array;
+	}
+
+	public void setArray(int[] array) {
+		this.array = array;
 	}
 
 	/**
@@ -114,7 +131,7 @@ public class Heap {
 	 * @param key
 	 */
 	public void decreaseKey(int i, int newValue) {
-
+		// TODO
 	}
 
 }
