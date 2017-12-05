@@ -11,14 +11,14 @@ import org.junit.jupiter.api.*;
  */
 class HeapTester {
 
-	private int[] testArray;
+	private double[] testArray;
 
 	/**
 	 * Run this code before each test.
 	 */
 	@BeforeEach
 	public void runBeforeTests() {
-		testArray = new int[] { 38, 3, 33, 36, 5, 70, 24, 47, 7, 27, 15, 48, 53, 32, 93 };
+		testArray = new double[] { 38, 3, 33, 36, 5, 70, 24, 47, 7, 27, 15, 48, 53, 32, 93 };
 	}
 
 	/**
@@ -51,7 +51,7 @@ class HeapTester {
 	@Test
 	public void testSwap() {
 		Heap heap = new Heap(testArray);
-		int[] expected = new int[] { 38, 32, 33, 36, 5, 70, 24, 47, 7, 27, 15, 48, 53, 3, 93 };
+		double[] expected = new double[] { 38, 32, 33, 36, 5, 70, 24, 47, 7, 27, 15, 48, 53, 3, 93 };
 		heap.swap(1,  13);
 		assertArrayEquals(expected, heap.getArray());
 	}
@@ -62,7 +62,7 @@ class HeapTester {
 	@Test
 	public void testHeapify() {
 		Heap heap = new Heap(testArray);
-		int[] expected = new int[] { 3, 5, 33, 36, 15, 70, 24, 47, 7, 27, 38, 48, 53, 32, 93 };
+		double[] expected = new double[] { 3, 5, 33, 36, 15, 70, 24, 47, 7, 27, 38, 48, 53, 32, 93 };
 		heap.heapify(0);
 		assertArrayEquals(expected, heap.getArray());
 	}
@@ -73,7 +73,7 @@ class HeapTester {
 	@Test
 	public void testBuild() {
 		Heap heap = new Heap(testArray.length);
-		int[] expected = new int[] { 3, 5, 24, 7, 15, 48, 32, 47, 36, 27, 38, 70, 53, 33, 93 };
+		double[] expected = new double[] { 3, 5, 24, 7, 15, 48, 32, 47, 36, 27, 38, 70, 53, 33, 93 };
 		heap.build(testArray);
 		assertArrayEquals(expected, heap.getArray());
 	}
@@ -84,7 +84,7 @@ class HeapTester {
 	@Test
 	public void testDecreaseKey() {
 		Heap heap = new Heap(testArray.length);
-		int [] expected = new int[] {1, 5, 3, 7, 15, 24, 32, 47, 36, 27, 38, 48, 53, 33, 93};
+		double [] expected = new double[] {1, 5, 3, 7, 15, 24, 32, 47, 36, 27, 38, 48, 53, 33, 93};
 		heap.build(testArray);
 		heap.decreaseKey(11, 1);
 		assertArrayEquals(expected, heap.getArray());
@@ -96,7 +96,7 @@ class HeapTester {
 	@Test
 	public void testInsert() {
 		Heap heap = new Heap(testArray.length + 1);
-		int[] expected = new int[] { 1, 3, 24, 5, 15, 48, 32, 7, 36, 27, 38, 70, 53, 33, 93, 47};
+		double[] expected = new double[] { 1, 3, 24, 5, 15, 48, 32, 7, 36, 27, 38, 70, 53, 33, 93, 47};
 		heap.build(testArray);
 		heap.insert(1);
 		assertEquals(16, heap.getSize());
@@ -120,7 +120,7 @@ class HeapTester {
 	@Test
 	public void testExtractMin() {
 		Heap heap = new Heap(testArray.length);
-		int[] expected = new int[] {5, 7, 24, 36, 15, 48, 32, 47, 93, 27, 38, 70, 53, 33, 93};
+		double[] expected = new double[] {5, 7, 24, 36, 15, 48, 32, 47, 93, 27, 38, 70, 53, 33, 93};
 		heap.build(testArray);
 		assertEquals(3, heap.extractMin());
 		assertArrayEquals(expected, heap.getArray());

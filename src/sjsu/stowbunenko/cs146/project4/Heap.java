@@ -8,28 +8,28 @@ package sjsu.stowbunenko.cs146.project4;
  */
 public class Heap {
 
-	private int[] array;
+	private double[] array;
 	private int size; // the size of the heap with valid elements (not the length of the array)
 
 	// Constructors
 
 	public Heap(int capacity) {
-		array = new int[capacity];
+		array = new double[capacity];
 		size = 0;
 	}
 
-	public Heap(int[] array) {
+	public Heap(double[] array) {
 		this.array = array;
 		size = array.length;
 	}
 
 	// Getters and setters
 
-	public int[] getArray() {
+	public double[] getArray() {
 		return array;
 	}
 
-	public void setArray(int[] array) {
+	public void setArray(double[] array) {
 		this.array = array;
 	}
 
@@ -77,7 +77,7 @@ public class Heap {
 	 * @param index2
 	 */
 	public void swap(int index1, int index2) {
-		int temp = array[index1];
+		double temp = array[index1];
 		array[index1] = array[index2];
 		array[index2] = temp;
 	}
@@ -105,7 +105,7 @@ public class Heap {
 	 * @param array
 	 *            the unordered input array
 	 */
-	public void build(int[] array) {
+	public void build(double[] array) {
 		size = array.length;
 		System.arraycopy(array, 0, this.array, 0, size);
 		for (int i = size / 2 - 1; i >= 0; i--)
@@ -117,7 +117,7 @@ public class Heap {
 	 * 
 	 * @param key
 	 */
-	public void decreaseKey(int i, int newValue) {
+	public void decreaseKey(int i, double newValue) {
 		if (newValue > array[i])
 			throw new Error("new key is larger than current key");
 		array[i] = newValue;
@@ -133,8 +133,8 @@ public class Heap {
 	 * @param element
 	 *            the element to be inserted in the heap
 	 */
-	public void insert(int element) {
-		array[++size - 1] = Integer.MAX_VALUE;
+	public void insert(double element) {
+		array[++size - 1] = Double.MAX_VALUE;
 		decreaseKey(size - 1, element);
 	}
 
@@ -143,7 +143,7 @@ public class Heap {
 	 * 
 	 * @return the minimum element
 	 */
-	public int getMin() {
+	public double getMin() {
 		return array[0];
 	}
 
@@ -152,10 +152,10 @@ public class Heap {
 	 * 
 	 * @return the extracted minimum element.
 	 */
-	public int extractMin() {
+	public double extractMin() {
 		if (array.length < 1)
 			throw new Error("heap underflow");
-		int min = array[0];
+		double min = array[0];
 		array[0] = array[--size];
 		heapify(0);
 		return min;
@@ -167,7 +167,7 @@ public class Heap {
 	 * @param element
 	 * @return true if it contains, false otherwise
 	 */
-	public boolean contains(int element) {
+	public boolean contains(double element) {
 		for (int i = 0; i < size; i++) {
 			if (array[i] == element)
 				return true;
