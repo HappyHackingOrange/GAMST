@@ -12,7 +12,7 @@ class GraphTester {
 	/**
 	 * Finds the neighbors of the specific vertex and returns an ArrayList of Integers of the neighbors
 	 */
-	@Test
+	//@Test
 	void findNeighbors(){
 		Graph graph = new Graph();
 		int vertice = 1; // using file ""tinyEWG.txt" for the neighbors
@@ -33,13 +33,13 @@ class GraphTester {
 	void addtheEdge() {
 		Graph graph = new Graph();
 		graph.addEdge(0, 4, 0.38);
-		assertEquals("0: (4 0.38) ",graph.toString());		
+		assertEquals("0: (4, 0.38)\n 4: (0, 0.38)",graph.toString());		
 	}
 	
 	/**
 	 * Tests for Depth-First Search and the order it finds its neighbors
 	 */
-	@Test
+	//@Test
 	void testDFS() {
 		
 	}
@@ -47,7 +47,7 @@ class GraphTester {
 	/**
 	 * Tests to find the minimum spanning tree
 	 */
-	@Test
+	//@Test
 	void testPrim() {
 		
 	}
@@ -55,7 +55,7 @@ class GraphTester {
 	/**
 	 * Tests the new algorithm which incorporates DFS
 	 */
-	@Test
+	//@Test
 	void testnewAlgorithm() {
 		
 	}

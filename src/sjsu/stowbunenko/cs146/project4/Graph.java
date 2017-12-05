@@ -16,20 +16,25 @@ import java.util.*;
 public class Graph {
 
 	// Instance variables
+	// ArrayList<LinkedList<Pair<Integer, Double>>> adjacencyList;
 	ArrayList<LinkedList<Pair<Integer, Double>>> adjacencyList;
+
 	ArrayList<Pair<Integer, Double>> queue;
 	private int edge;
 	private int vertices;
 
 	public Graph() {
-		adjacencyList = new ArrayList<LinkedList<Pair<Integer, Double>>>(10000);
+		// adjacencyList = new ArrayList<LinkedList<Pair<Integer, Double>>>(10000);
+		// for (LinkedList<Pair<Integer, Double>> current : adjacencyList)
+		// current = null;
+		adjacencyList = new ArrayList<LinkedList<Pair<Integer, Double>>>(10001);
+		for (int x = 0; x < 10001; x++) {
+			adjacencyList.add(x, new LinkedList<Pair<Integer, Double>>());
+		}
 		vertices = 0;
 		edge = 0;
 	}
 
-	
-	
-	
 	/**
 	 * Add a weighted edge to the graph.
 	 * 
@@ -42,13 +47,16 @@ public class Graph {
 	 */
 	public void addEdge(int source, int destination, double weight) {
 		Pair<Integer, Double> pair = new Pair<Integer, Double>(destination, weight);
+		Pair<Integer, Double> reversePair = new Pair<Integer, Double>(source, weight);
+		/*
+		 * LinkedListObject locationToAdd = adjacencyList.get(source); LinkedListObject
+		 * locationToAdd2 = adjacencyList.get(destination); locationToAdd.add(pair);
+		 * locationToAdd2.add(reversePair);
+		 */
 		adjacencyList.get(source).add(pair);
+		adjacencyList.get(destination).add(reversePair);
 	}
 
-
-	
-	
-	
 	/**
 	 * This finds the neighbors of the source
 	 * 
@@ -62,9 +70,6 @@ public class Graph {
 		return neighbors;
 	}
 
-	
-	
-	
 	/**
 	 * Loads the the data from the file for testing and saves into the graph
 	 * 
@@ -90,9 +95,6 @@ public class Graph {
 		}
 	}
 
-	
-	
-	
 	/**
 	 * Explores all the vertices in the order of exploring the newly discovered
 	 * vertex
@@ -100,15 +102,12 @@ public class Graph {
 	public void DFS(Graph graph, double weight, int vertex) {
 
 	}
-	
-	
-	
+
 	/**
 	 * Prim's algorithm based on what the Professor has given according to the
-	 * slides
-	 * Each pair should have the property of the boolean "reached" to determine if it
-	 * has been explored or not.
-	*
+	 * slides Each pair should have the property of the boolean "reached" to
+	 * determine if it has been explored or not.
+	 *
 	 * Prim's algorithm based on what the Professor has given according to the
 	 * slides
 	 * 
@@ -117,25 +116,20 @@ public class Graph {
 	 * @param vertex
 	 */
 
-
-
-
 	public Graph Prim(double weight, int vertex) {
 		// Queue of vertices
 		Graph mingraph = new Graph();
 		int current = vertex;
-		while(!queue.isEmpty()) {
+		while (!queue.isEmpty()) {
 			current = ExtractMinimumEdge(current).x;
-			
+
 		}
 		return mingraph;
 	}
 
-	
-	
 	/**
-	 * This will find the minimum edge out of the queue (temporarily using
-	 * ArrayList even though it looks horrendous)
+	 * This will find the minimum edge out of the queue (temporarily using ArrayList
+	 * even though it looks horrendous)
 	 * 
 	 * @param source
 	 * @param previous
@@ -165,11 +159,11 @@ public class Graph {
 		}
 		if (minEdgeNeighbor.y < minQueue.y) {
 			neighbors.remove(indexNeighbor);
-			for(Pair<Integer,Double> current: neighbors)
+			for (Pair<Integer, Double> current : neighbors)
 				queue.add(current);
 			return minEdgeNeighbor;
 		} else {
-			for(Pair<Integer,Double> current: neighbors)
+			for (Pair<Integer, Double> current : neighbors)
 				queue.add(current);
 			queue.remove(indexQueue);
 			return minQueue;
@@ -186,11 +180,9 @@ public class Graph {
 		return minimumEdge.reached;
 	}
 
-	
-	
-	
 	/**
-	 * Sort the edges in descending order according to their weights for each edge 
+	 * Sort the edges in descending order according to their weights for each edge
+	 * 
 	 * @param graph
 	 * @param weight
 	 * @param vertex
@@ -200,9 +192,6 @@ public class Graph {
 
 	}
 
-	
-	
-	
 	/**
 	 * String representation of the adjacency list of this graph.
 	 */
@@ -210,10 +199,12 @@ public class Graph {
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();
 		for (int i = 0; i < adjacencyList.size(); i++) {
-			stringBuilder.append(String.format("%d: ", i));
-			for (Pair<Integer, Double> pair : adjacencyList.get(i))
-				stringBuilder.append(String.format("(%d, %f) ", pair.x, pair.y));
-			stringBuilder.append("\n");
+			if (adjacencyList.get(i).peek() != null) {
+				stringBuilder.append(String.format("%d: ", i));
+				for (Pair<Integer, Double> pair : adjacencyList.get(i))
+					stringBuilder.append(String.format("(%d, %.2f) ", pair.x, pair.y));
+				stringBuilder.append("\n");
+			}
 		}
 		return stringBuilder.toString();
 	}
