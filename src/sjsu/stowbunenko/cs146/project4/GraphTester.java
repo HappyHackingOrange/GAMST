@@ -1,10 +1,9 @@
 package sjsu.stowbunenko.cs146.project4;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.*;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,24 +27,30 @@ class GraphTester {
 		strBldr.append("7: (4, 0.37) (5, 0.28) (0, 0.16) (1, 0.19) (2, 0.34) \n");
 		assertEquals(strBldr.toString(), graph.toString());
 	}
-	
+
 	/**
-	 * Finds the neighbors of the specific vertex and returns an ArrayList of Integers of the neighbors
+	 * Finds the neighbors of the specific vertex and returns an ArrayList of
+	 * Integers of the neighbors
 	 */
-	//@Test
-	void findNeighbors(){
+	@Test
+	void findNeighbors() {
 		Graph graph = new Graph();
-		int vertice = 1; // using file ""tinyEWG.txt" for the neighbors
-		ArrayList<Integer> results = new ArrayList<Integer>(4);
-		results.add(5);
-		results.add(7);
-		results.add(2);
-		results.add(3);
-		for(int current: results ) {
-			assertTrue(graph.findNeighbors(vertice).contains(current));
+		graph.load(new File("WeightedGraphExamples/tinyEWG.txt"));
+		ArrayList<Pair<Integer, Double>> actuals = graph.findNeighbors(0);
+		ArrayList<Pair<Integer, Double>> expecteds = new ArrayList<>();
+		expecteds.add(new Pair<>(7, 0.16));
+		expecteds.add(new Pair<>(4, 0.38));
+		expecteds.add(new Pair<>(2, 0.26));
+		expecteds.add(new Pair<>(6, 0.58));
+		assertTrue(actuals.size() == expecteds.size());
+		for (int i = 0; i < actuals.size(); i++) {
+			Pair<Integer, Double> expected = expecteds.get(i);
+			Pair<Integer, Double> actual = actuals.get(i);
+			assertEquals(actual.x, expected.x);
+			assertEquals(actual.y, expected.y);
 		}
 	}
-	
+
 	/**
 	 * Tests to see if the edge has been added to the list
 	 */
@@ -53,30 +58,30 @@ class GraphTester {
 	void addtheEdge() {
 		Graph graph = new Graph();
 		graph.addEdge(0, 4, 0.38);
-		assertEquals("0: (4, 0.38) \n4: (0, 0.38) \n",graph.toString());		
+		assertEquals("0: (4, 0.38) \n4: (0, 0.38) \n", graph.toString());
 	}
-	
+
 	/**
 	 * Tests for Depth-First Search and the order it finds its neighbors
 	 */
-	//@Test
+	// @Test
 	void testDFS() {
-		
+
 	}
-	
+
 	/**
 	 * Tests to find the minimum spanning tree
 	 */
-	//@Test
+	// @Test
 	void testPrim() {
-		
+
 	}
-	
+
 	/**
 	 * Tests the new algorithm which incorporates DFS
 	 */
-	//@Test
+	// @Test
 	void testnewAlgorithm() {
-		
+
 	}
 }
