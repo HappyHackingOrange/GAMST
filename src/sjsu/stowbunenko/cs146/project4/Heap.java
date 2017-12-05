@@ -161,4 +161,18 @@ public class Heap {
 		return min;
 	}
 
+	/**
+	 * Checks if the heap contains the element.
+	 * 
+	 * @param element
+	 * @return true if it contains, false otherwise
+	 */
+	public boolean contains(int element) {
+		for (int i = 0; i < size; i++) {
+			if (array[i] == element)
+				return true;
+		}
+		return false;
+	}
+
 }

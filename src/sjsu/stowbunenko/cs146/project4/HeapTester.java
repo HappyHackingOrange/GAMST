@@ -126,5 +126,16 @@ class HeapTester {
 		assertArrayEquals(expected, heap.getArray());
 		assertEquals(14, heap.getSize());
 	}
+	
+	/**
+	 * Tests the contains method.
+	 */
+	@Test
+	public void testContains() {
+		Heap heap = new Heap(testArray.length);
+		heap.build(testArray);
+		assertTrue(heap.contains(33));
+		assertFalse(heap.contains(1));
+	}
 
 }
