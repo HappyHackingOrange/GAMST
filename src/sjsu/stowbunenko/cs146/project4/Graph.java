@@ -22,12 +22,17 @@ public class Graph {
 
 	// Instance variables
 	ArrayList<LinkedList<Pair>> adjacencyList;
-	HashMap<Integer, Vertex> vertexMap;
+	ArrayList<Vertex> vertexList;
 	private int edges;
 	private int vertices;
 
+	/**
+	 * Constructs the graph from a graph file.
+	 * 
+	 * @param filename
+	 *            the filename to load the graph.
+	 */
 	public Graph(String filename) {
-		vertexMap = new HashMap<>();
 		load(new File(filename));
 	}
 
@@ -72,9 +77,10 @@ public class Graph {
 			BufferedReader br = new BufferedReader(fr);
 			vertices = Integer.parseInt(br.readLine());
 			adjacencyList = new ArrayList<>(vertices);
+			vertexList = new ArrayList<>(vertices);
 			for (int i = 0; i < vertices; i++) {
 				adjacencyList.add(new LinkedList<>());
-				vertexMap.put(i, new Vertex());
+				vertexList.add(new Vertex());
 			}
 			edges = Integer.parseInt(br.readLine());
 			while ((line = br.readLine()) != null) {
@@ -115,18 +121,6 @@ public class Graph {
 		return null;
 	}
 
-//	/**
-//	 * This will find the minimum edge out of the queue (temporarily using ArrayList
-//	 * even though it looks horrendous)
-//	 * 
-//	 * @param source
-//	 * @param previous
-//	 * @return
-//	 */
-//	public Pair ExtractMinimumEdge(int source) {
-//		return null;
-//	}
-
 	/**
 	 * Sort the edges in descending order according to their weights for each edge
 	 * 
@@ -145,25 +139,6 @@ public class Graph {
 	@Override
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();
-		/*
-		 * Map<Vertex, LinkedList<Pair<Vertex,Double>>> map = adjacencyList; Set set =
-		 * adjacencyList.entrySet(); Iterator i = set.iterator(); while(i.hasNext()) {
-		 * Map.Entry entry = (Map.Entry)i.next(); Vertex current = (Vertex)
-		 * entry.getKey(); stringBuilder.append(current.key + ": ");
-		 * for(Pair<Vertex,Double> pair: (LinkedList) entry.getValue()) {
-		 * 
-		 * } }
-		 */
-
-		/*
-		 * for (int i = 0; i < adjacencyList.size(); i++) { if
-		 * (adjacencyList.get(i).peek() != null) {
-		 * stringBuilder.append(String.format("%d: ", i)); for (Pair<Vertex, Double>
-		 * pair : adjacencyList.get(i))
-		 * stringBuilder.append(String.format("(%d, %.2f) ", pair.x, pair.y));
-		 * stringBuilder.append("\n"); } }
-		 */
-//		for (LinkedList<Pair> linkedList : adjacencyList) {
 		for (int i = 0; i < vertices; i++) {
 			stringBuilder.append(String.format("%d: ", i));
 			for (Pair pair : adjacencyList.get(i))

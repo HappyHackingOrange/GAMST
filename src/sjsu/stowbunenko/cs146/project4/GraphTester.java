@@ -50,16 +50,6 @@ class GraphTester {
 	}
 
 	/**
-	 * Tests to see if the edge has been added to the list
-	 */
-	@Test
-	void addtheEdge() {
-//		Graph graph = new Graph();
-//		graph.addEdge(0, 4, 0.38);
-//		assertEquals("0: (4, 0.38) \n4: (0, 0.38) \n", graph.toString());
-	}
-
-	/**
 	 * Tests for Depth-First Search and the order it finds its neighbors
 	 */
 	// @Test
