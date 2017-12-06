@@ -36,17 +36,21 @@ class GraphTester {
 	void findNeighbors() {
 		Graph graph = new Graph();
 		graph.load(new File("WeightedGraphExamples/tinyEWG.txt"));
-		ArrayList<Pair<Integer, Double>> actuals = graph.findNeighbors(0);
-		ArrayList<Pair<Integer, Double>> expecteds = new ArrayList<>();
-		expecteds.add(new Pair<>(7, 0.16));
-		expecteds.add(new Pair<>(4, 0.38));
-		expecteds.add(new Pair<>(2, 0.26));
-		expecteds.add(new Pair<>(6, 0.58));
+		ArrayList<Pair<Vertex, Double>> actuals = graph.findNeighbors(0);
+		ArrayList<Pair<Vertex, Double>> expecteds = new ArrayList<>();
+		Vertex one = new Vertex(0,7);
+		Vertex two = new Vertex(0,4);
+		Vertex three = new Vertex(0,2);
+		Vertex four = new Vertex(0,6);
+		expecteds.add(new Pair<Vertex,Double>(one, 0.16));
+		expecteds.add(new Pair<Vertex,Double>(two, 0.38));
+		expecteds.add(new Pair<Vertex,Double>(three, 0.26));
+		expecteds.add(new Pair<Vertex,Double>(four, 0.58));
 		assertTrue(actuals.size() == expecteds.size());
 		for (int i = 0; i < actuals.size(); i++) {
-			Pair<Integer, Double> expected = expecteds.get(i);
-			Pair<Integer, Double> actual = actuals.get(i);
-			assertEquals(actual.x, expected.x);
+			Pair<Vertex, Double> expected = expecteds.get(i);
+			Pair<Vertex, Double> actual = actuals.get(i);
+			assertEquals(actual.x.destination, expected.x.destination);
 			assertEquals(actual.y, expected.y);
 		}
 	}

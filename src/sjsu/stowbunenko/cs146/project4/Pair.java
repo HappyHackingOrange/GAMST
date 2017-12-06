@@ -11,13 +11,11 @@ public class Pair<X, Y> {
 	// Instance variables
 	public final X x;
 	public final Y y;
-	public boolean reached;
 
 	// Constructor
 	public Pair(X x, Y y) {
 		this.x = x;
 		this.y = y;
-		reached = false;
 	}
 	
 }

@@ -16,20 +16,15 @@ import java.util.*;
 public class Graph {
 
 	// Instance variables
-	// ArrayList<LinkedList<Pair<Integer, Double>>> adjacencyList;
-	ArrayList<LinkedList<Pair<Integer, Double>>> adjacencyList;
-
+	ArrayList<LinkedList<Pair<Vertex, Double>>> adjacencyList;
 	ArrayList<Pair<Integer, Double>> queue;
 	private int edge;
 	private int vertices;
 
 	public Graph() {
-		// adjacencyList = new ArrayList<LinkedList<Pair<Integer, Double>>>(10000);
-		// for (LinkedList<Pair<Integer, Double>> current : adjacencyList)
-		// current = null;
-		adjacencyList = new ArrayList<LinkedList<Pair<Integer, Double>>>(10001);
+		adjacencyList = new ArrayList<LinkedList<Pair<Vertex, Double>>>(10001);
 		for (int x = 0; x < 10001; x++) {
-			adjacencyList.add(x, new LinkedList<Pair<Integer, Double>>());
+			adjacencyList.add(x, new LinkedList<Pair<Vertex, Double>>());
 		}
 		vertices = 0;
 		edge = 0;
@@ -46,13 +41,10 @@ public class Graph {
 	 *            the weight on the edge between vertices u and v
 	 */
 	public void addEdge(int source, int destination, double weight) {
-		Pair<Integer, Double> pair = new Pair<Integer, Double>(destination, weight);
-		Pair<Integer, Double> reversePair = new Pair<Integer, Double>(source, weight);
-		/*
-		 * LinkedListObject locationToAdd = adjacencyList.get(source); LinkedListObject
-		 * locationToAdd2 = adjacencyList.get(destination); locationToAdd.add(pair);
-		 * locationToAdd2.add(reversePair);
-		 */
+		Vertex theSource = new Vertex(source,destination);
+		Vertex theDestination = new Vertex(destination,source);
+		Pair<Vertex, Double> pair = new Pair<Vertex, Double>(theSource, weight);
+		Pair<Vertex, Double> reversePair = new Pair<Vertex, Double>(theDestination, weight);
 		adjacencyList.get(source).add(pair);
 		adjacencyList.get(destination).add(reversePair);
 	}
@@ -62,9 +54,9 @@ public class Graph {
 	 * 
 	 * @return an ArrayList of neighbors from the source
 	 */
-	public ArrayList<Pair<Integer, Double>> findNeighbors(int source) {
-		ArrayList<Pair<Integer, Double>> neighbors = new ArrayList<Pair<Integer, Double>>();
-		for (Pair<Integer, Double> current : adjacencyList.get(source)) {
+	public ArrayList<Pair<Vertex, Double>> findNeighbors(int source) {
+		ArrayList<Pair<Vertex, Double>> neighbors = new ArrayList<Pair<Vertex, Double>>();
+		for (Pair<Vertex, Double> current : adjacencyList.get(source)) {
 			neighbors.add(current);
 		}
 		return neighbors;
@@ -121,12 +113,15 @@ public class Graph {
 		Graph mingraph = new Graph();
 		int current = vertex;
 		while (!queue.isEmpty()) {
-			current = ExtractMinimumEdge(current).x;
+			current = ExtractMinimumEdge(current).x.destination;
 
 		}
 		return mingraph;
 	}
 
+
+	
+	
 	/**
 	 * This will find the minimum edge out of the queue (temporarily using ArrayList
 	 * even though it looks horrendous)
@@ -135,50 +130,10 @@ public class Graph {
 	 * @param previous
 	 * @return
 	 */
-	public Pair<Integer, Double> ExtractMinimumEdge(int source) {
-		ArrayList<Pair<Integer, Double>> neighbors = findNeighbors(source);
-		int counter = 0;
-		int indexNeighbor = 0;
-		int indexQueue = 0;
-		Pair<Integer, Double> minEdgeNeighbor = neighbors.get(0);
-		Pair<Integer, Double> minQueue = queue.get(0);
-		for (Pair<Integer, Double> current : neighbors) {
-			counter++;
-			if (current.y < minEdgeNeighbor.y) {
-				indexNeighbor = counter;
-				minEdgeNeighbor = current;
-			}
-		}
-		counter = 0;
-		for (Pair<Integer, Double> current : queue) {
-			counter++;
-			if (current.y < minQueue.y) {
-				indexQueue = counter;
-				minQueue = current;
-			}
-		}
-		if (minEdgeNeighbor.y < minQueue.y) {
-			neighbors.remove(indexNeighbor);
-			for (Pair<Integer, Double> current : neighbors)
-				queue.add(current);
-			return minEdgeNeighbor;
-		} else {
-			for (Pair<Integer, Double> current : neighbors)
-				queue.add(current);
-			queue.remove(indexQueue);
-			return minQueue;
-		}
+	public Pair<Vertex, Double> ExtractMinimumEdge(int source) {
+		
 	}
 
-	/**
-	 * Determines if this destination has been reached or not
-	 * 
-	 * @param source
-	 * @return
-	 */
-	public boolean hasBeenReached(Pair<Integer, Double> minimumEdge) {
-		return minimumEdge.reached;
-	}
 
 	/**
 	 * Sort the edges in descending order according to their weights for each edge
@@ -201,8 +156,8 @@ public class Graph {
 		for (int i = 0; i < adjacencyList.size(); i++) {
 			if (adjacencyList.get(i).peek() != null) {
 				stringBuilder.append(String.format("%d: ", i));
-				for (Pair<Integer, Double> pair : adjacencyList.get(i))
-					stringBuilder.append(String.format("(%d, %.2f) ", pair.x, pair.y));
+				for (Pair<Vertex, Double> pair : adjacencyList.get(i))
+					stringBuilder.append(String.format("(%d, %.2f) ", pair.x.destination, pair.y));
 				stringBuilder.append("\n");
 			}
 		}
