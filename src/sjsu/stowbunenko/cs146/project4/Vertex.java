@@ -17,7 +17,7 @@ public class Vertex {
 	 * @param destination
 	 */
 	public Vertex() {
-		key = Double.MAX_VALUE;
+		key = Double.POSITIVE_INFINITY;
 		parent = null;
 //		child = null;
 	}

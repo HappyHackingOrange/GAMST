@@ -15,8 +15,6 @@ public class Heap {
 
 	public Heap(int capacity) {
 		array = new Vertex[capacity];
-//		for (Vertex vertex : array)
-//			vertex = new Vertex();
 		for (int i = 0; i < capacity; i++)
 			array[i] = new Vertex();
 		size = 0;
@@ -118,7 +116,6 @@ public class Heap {
 	 */
 	public void build(double[] array) {
 		size = array.length;
-//		System.arraycopy(array, 0, this.array, 0, size);
 		setKeyArray(array);
 		for (int i = size / 2 - 1; i >= 0; i--)
 			heapify(i);

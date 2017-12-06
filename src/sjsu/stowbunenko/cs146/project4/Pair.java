@@ -6,16 +6,16 @@ package sjsu.stowbunenko.cs146.project4;
  * 
  * Source: https://stackoverflow.com/a/2671052/3718280
  */
-public class Pair<X, Y> {
+public class Pair {
 
 	// Instance variables
-	public final X x;
-	public final Y y;
+	public final int destination;
+	public final double weight;
 
 	// Constructor
-	public Pair(X x, Y y) {
-		this.x = x;
-		this.y = y;
+	public Pair(int destination, double weight) {
+		this.destination = destination;
+		this.weight = weight;
 	}
 	
 }
