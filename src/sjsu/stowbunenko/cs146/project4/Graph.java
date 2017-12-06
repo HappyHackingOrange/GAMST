@@ -21,48 +21,48 @@ import java.util.Set;
 public class Graph {
 
 	// Instance variables
-	ArrayList<LinkedList<Pair<Vertex, Double>>> adjacencyList;
-	private int edge;
+	ArrayList<LinkedList<Pair>> adjacencyList;
+	ArrayList<Vertex> vertexList;
+	private int edges;
 	private int vertices;
 
-	public Graph() {
-		adjacencyList = new ArrayList<LinkedList<Pair<Vertex, Double>>>(10001);
-		for (int x = 0; x < 10001; x++) {
-			adjacencyList.add(x, new LinkedList<Pair<Vertex, Double>>());
-		}
-		vertices = 0;
-		edge = 0;
+	/**
+	 * Constructs the graph from a graph file.
+	 * 
+	 * @param filename
+	 *            the filename to load the graph.
+	 */
+	public Graph(String filename) {
+		load(new File(filename));
 	}
 
 	/**
 	 * Add a weighted edge to the graph.
 	 * 
-	 * @param u
-	 *            vertex u
-	 * @param v
-	 *            vertex v
-	 * @param wt
+	 * @param source
+	 *            the source vertex identified by an integer
+	 * @param destination
+	 *            the destination vertex identified by an integer
+	 * @param weight
 	 *            the weight on the edge between vertices u and v
 	 */
 	public void addEdge(int source, int destination, double weight) {
-		Vertex theSource = new Vertex(source);
-		Vertex theDestination = new Vertex(destination);
-		Pair<Vertex, Double> pair = new Pair<Vertex, Double>(theSource, weight);
-		Pair<Vertex, Double> reversePair = new Pair<Vertex, Double>(theDestination, weight);
-		adjacencyList.get(source).add(reversePair);
-		adjacencyList.get(destination).add(pair);
+		adjacencyList.get(source).add(new Pair(destination, weight));
+		adjacencyList.get(destination).add(new Pair(source, weight));
 	}
 
 	/**
 	 * This finds the neighbors of the source
 	 * 
+	 * @param source
+	 *            the source vertex identified by an integer
 	 * @return an ArrayList of neighbors from the source
 	 */
-	public ArrayList<Pair<Vertex, Double>> findNeighbors(int source) {
-		ArrayList<Pair<Vertex, Double>> neighbors = new ArrayList<Pair<Vertex, Double>>();
-		for (Pair<Vertex, Double> current : adjacencyList.get(source)) {
-			neighbors.add(current);
-		}
+
+	public ArrayList<Pair> findNeighbors(int source) {
+		ArrayList<Pair> neighbors = new ArrayList<Pair>();
+		for (Pair pair : adjacencyList.get(source))
+			neighbors.add(pair);
 		return neighbors;
 	}
 	/**
@@ -76,7 +76,13 @@ public class Graph {
 			FileReader fr = new FileReader(input);
 			BufferedReader br = new BufferedReader(fr);
 			vertices = Integer.parseInt(br.readLine());
-			edge = Integer.parseInt(br.readLine());
+			adjacencyList = new ArrayList<>(vertices);
+			vertexList = new ArrayList<>(vertices);
+			for (int i = 0; i < vertices; i++) {
+				adjacencyList.add(new LinkedList<>());
+				vertexList.add(new Vertex());
+			}
+			edges = Integer.parseInt(br.readLine());
 			while ((line = br.readLine()) != null) {
 				String[] data = line.split(" ");
 				addEdge(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Double.parseDouble(data[2]));
@@ -104,36 +110,16 @@ public class Graph {
 	 * determine if it has been explored or not.
 	 *
 	 * Prim's algorithm based on what the Professor has given according to the
-	 * slides
-	 * This will return the ROOT vertex
+	 * slides This will return the ROOT vertex
 	 * 
-	 * @param graph
 	 * @param weight
 	 * @param vertex
 	 */
 
-	public Vertex Prim(double weight, int vertex) {
+	public Vertex mstPrim(double weight, int vertex) {
 		// Queue of vertices
-		adjacencyList.get(vertex);
-		Heap queue = new Heap();
-		
+		return null;
 	}
-
-
-	
-	
-	/**
-	 * This will find the minimum edge out of the queue (temporarily using ArrayList
-	 * even though it looks horrendous)
-	 * 
-	 * @param source
-	 * @param previous
-	 * @return
-	 */
-	public Pair<Vertex, Double> ExtractMinimumEdge(int source) {
-		
-	}
-
 
 	/**
 	 * Sort the edges in descending order according to their weights for each edge
@@ -153,13 +139,11 @@ public class Graph {
 	@Override
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();
-		for (int i = 0; i < adjacencyList.size(); i++) {
-			if (adjacencyList.get(i).peek() != null) {
-				stringBuilder.append(String.format("%d: ", i));
-				for (Pair<Vertex, Double> pair : adjacencyList.get(i))
-					stringBuilder.append(String.format("(%d, %.2f) ", pair.x.key, pair.y));
-				stringBuilder.append("\n");
-			}
+		for (int i = 0; i < vertices; i++) {
+			stringBuilder.append(String.format("%d: ", i));
+			for (Pair pair : adjacencyList.get(i))
+				stringBuilder.append(String.format("(%d, %.2f) ", pair.destination, pair.weight));
+			stringBuilder.append("\n");
 		}
 		return stringBuilder.toString();
 	}
