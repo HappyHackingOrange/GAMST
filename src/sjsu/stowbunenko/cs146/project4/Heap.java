@@ -8,29 +8,40 @@ package sjsu.stowbunenko.cs146.project4;
  */
 public class Heap {
 
-	private double[] array;
+	private Vertex[] array;
 	private int size; // the size of the heap with valid elements (not the length of the array)
 
 	// Constructors
 
 	public Heap(int capacity) {
-		array = new double[capacity];
+		array = new Vertex[capacity];
+//		for (Vertex vertex : array)
+//			vertex = new Vertex();
+		for (int i = 0; i < capacity; i++)
+			array[i] = new Vertex();
 		size = 0;
 	}
 
 	public Heap(double[] array) {
-		this.array = array;
+		this.array = new Vertex[array.length];
+		for (int i = 0; i < array.length; i++) {
+			this.array[i] = new Vertex(array[i]);
+		}
 		size = array.length;
 	}
 
 	// Getters and setters
 
-	public double[] getArray() {
+	public double[] getKeyArray() {
+		double[] array = new double[this.array.length];
+		for (int i = 0; i < array.length; i++)
+			array[i] = this.array[i].key;
 		return array;
 	}
 
-	public void setArray(double[] array) {
-		this.array = array;
+	public void setKeyArray(double[] array) {
+		for (int i = 0; i < array.length; i++)
+			this.array[i].key = array[i];
 	}
 
 	public int getSize() {
@@ -77,7 +88,7 @@ public class Heap {
 	 * @param index2
 	 */
 	public void swap(int index1, int index2) {
-		double temp = array[index1];
+		Vertex temp = array[index1];
 		array[index1] = array[index2];
 		array[index2] = temp;
 	}
@@ -90,8 +101,8 @@ public class Heap {
 	public void heapify(int index) {
 		int leftChild = getLeftChild(index);
 		int rightChild = getRightChild(index);
-		int smallest = (leftChild <= size && array[leftChild] < array[index]) ? leftChild : index;
-		if (rightChild <= size - 1 && array[rightChild] < array[smallest])
+		int smallest = (leftChild <= size && array[leftChild].key < array[index].key) ? leftChild : index;
+		if (rightChild <= size - 1 && array[rightChild].key < array[smallest].key)
 			smallest = rightChild;
 		if (smallest != index) {
 			swap(index, smallest);
@@ -107,7 +118,8 @@ public class Heap {
 	 */
 	public void build(double[] array) {
 		size = array.length;
-		System.arraycopy(array, 0, this.array, 0, size);
+//		System.arraycopy(array, 0, this.array, 0, size);
+		setKeyArray(array);
 		for (int i = size / 2 - 1; i >= 0; i--)
 			heapify(i);
 	}
@@ -118,10 +130,10 @@ public class Heap {
 	 * @param key
 	 */
 	public void decreaseKey(int i, double newValue) {
-		if (newValue > array[i])
+		if (newValue > array[i].key)
 			throw new Error("new key is larger than current key");
-		array[i] = newValue;
-		while (i > 0 && array[getParent(i)] > array[i]) {
+		array[i].key = newValue;
+		while (i > 0 && array[getParent(i)].key > array[i].key) {
 			swap(i, getParent(i));
 			i = getParent(i);
 		}
@@ -134,7 +146,7 @@ public class Heap {
 	 *            the element to be inserted in the heap
 	 */
 	public void insert(double element) {
-		array[++size - 1] = Double.MAX_VALUE;
+		array[++size - 1].key = Double.MAX_VALUE;
 		decreaseKey(size - 1, element);
 	}
 
@@ -143,7 +155,7 @@ public class Heap {
 	 * 
 	 * @return the minimum element
 	 */
-	public double getMin() {
+	public Vertex getMin() {
 		return array[0];
 	}
 
@@ -152,10 +164,10 @@ public class Heap {
 	 * 
 	 * @return the extracted minimum element.
 	 */
-	public double extractMin() {
+	public Vertex extractMin() {
 		if (array.length < 1)
 			throw new Error("heap underflow");
-		double min = array[0];
+		Vertex min = array[0];
 		array[0] = array[--size];
 		heapify(0);
 		return min;
@@ -169,7 +181,7 @@ public class Heap {
 	 */
 	public boolean contains(double element) {
 		for (int i = 0; i < size; i++) {
-			if (array[i] == element)
+			if (array[i].key == element)
 				return true;
 		}
 		return false;

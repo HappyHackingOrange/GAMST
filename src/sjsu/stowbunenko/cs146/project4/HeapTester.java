@@ -53,7 +53,7 @@ class HeapTester {
 		Heap heap = new Heap(testArray);
 		double[] expected = new double[] { 38, 32, 33, 36, 5, 70, 24, 47, 7, 27, 15, 48, 53, 3, 93 };
 		heap.swap(1,  13);
-		assertArrayEquals(expected, heap.getArray());
+		assertArrayEquals(expected, heap.getKeyArray());
 	}
 	
 	/**
@@ -64,7 +64,7 @@ class HeapTester {
 		Heap heap = new Heap(testArray);
 		double[] expected = new double[] { 3, 5, 33, 36, 15, 70, 24, 47, 7, 27, 38, 48, 53, 32, 93 };
 		heap.heapify(0);
-		assertArrayEquals(expected, heap.getArray());
+		assertArrayEquals(expected, heap.getKeyArray());
 	}
 
 	/**
@@ -75,7 +75,7 @@ class HeapTester {
 		Heap heap = new Heap(testArray.length);
 		double[] expected = new double[] { 3, 5, 24, 7, 15, 48, 32, 47, 36, 27, 38, 70, 53, 33, 93 };
 		heap.build(testArray);
-		assertArrayEquals(expected, heap.getArray());
+		assertArrayEquals(expected, heap.getKeyArray());
 	}
 
 	/**
@@ -87,7 +87,7 @@ class HeapTester {
 		double [] expected = new double[] {1, 5, 3, 7, 15, 24, 32, 47, 36, 27, 38, 48, 53, 33, 93};
 		heap.build(testArray);
 		heap.decreaseKey(11, 1);
-		assertArrayEquals(expected, heap.getArray());
+		assertArrayEquals(expected, heap.getKeyArray());
 	}
 
 	/**
@@ -100,7 +100,7 @@ class HeapTester {
 		heap.build(testArray);
 		heap.insert(1);
 		assertEquals(16, heap.getSize());
-		assertArrayEquals(expected, heap.getArray());
+		assertArrayEquals(expected, heap.getKeyArray());
 	}
 	
 	/**
@@ -110,7 +110,7 @@ class HeapTester {
 	public void testGetMin() {
 		Heap heap = new Heap(testArray.length);
 		heap.build(testArray);
-		assertEquals(3, heap.getMin());
+		assertEquals(3, heap.getMin().key);
 		assertEquals(15, heap.getSize());
 	}
 	
@@ -122,8 +122,8 @@ class HeapTester {
 		Heap heap = new Heap(testArray.length);
 		double[] expected = new double[] {5, 7, 24, 36, 15, 48, 32, 47, 93, 27, 38, 70, 53, 33, 93};
 		heap.build(testArray);
-		assertEquals(3, heap.extractMin());
-		assertArrayEquals(expected, heap.getArray());
+		assertEquals(3, heap.extractMin().key);
+		assertArrayEquals(expected, heap.getKeyArray());
 		assertEquals(14, heap.getSize());
 	}
 	
