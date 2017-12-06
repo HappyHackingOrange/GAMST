@@ -38,10 +38,10 @@ class GraphTester {
 		graph.load(new File("WeightedGraphExamples/tinyEWG.txt"));
 		ArrayList<Pair<Vertex, Double>> actuals = graph.findNeighbors(0);
 		ArrayList<Pair<Vertex, Double>> expecteds = new ArrayList<>();
-		Vertex one = new Vertex(0,7);
-		Vertex two = new Vertex(0,4);
-		Vertex three = new Vertex(0,2);
-		Vertex four = new Vertex(0,6);
+		Vertex one = new Vertex(7);
+		Vertex two = new Vertex(4);
+		Vertex three = new Vertex(2);
+		Vertex four = new Vertex(6);
 		expecteds.add(new Pair<Vertex,Double>(one, 0.16));
 		expecteds.add(new Pair<Vertex,Double>(two, 0.38));
 		expecteds.add(new Pair<Vertex,Double>(three, 0.26));
@@ -50,7 +50,7 @@ class GraphTester {
 		for (int i = 0; i < actuals.size(); i++) {
 			Pair<Vertex, Double> expected = expecteds.get(i);
 			Pair<Vertex, Double> actual = actuals.get(i);
-			assertEquals(actual.x.destination, expected.x.destination);
+			assertEquals(actual.x.key, expected.x.key);
 			assertEquals(actual.y, expected.y);
 		}
 	}

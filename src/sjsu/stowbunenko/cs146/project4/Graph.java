@@ -21,14 +21,14 @@ import java.util.Set;
 public class Graph {
 
 	// Instance variables
-	HashMap<Vertex, LinkedList<Pair<Vertex,Double>>> adjacencyList;
+	ArrayList<LinkedList<Pair<Vertex, Double>>> adjacencyList;
 	private int edge;
 	private int vertices;
 
 	public Graph() {
-		adjacencyList = new HashMap<Vertex, LinkedList<Pair<Vertex,Double>>>(10001);
+		adjacencyList = new ArrayList<LinkedList<Pair<Vertex, Double>>>(10001);
 		for (int x = 0; x < 10001; x++) {
-			adjacencyList.put(new Vertex(), new LinkedList<Pair<Vertex, Double>>());
+			adjacencyList.add(x, new LinkedList<Pair<Vertex, Double>>());
 		}
 		vertices = 0;
 		edge = 0;
@@ -45,18 +45,12 @@ public class Graph {
 	 *            the weight on the edge between vertices u and v
 	 */
 	public void addEdge(int source, int destination, double weight) {
-		Map<Vertex, LinkedList<Pair<Vertex,Double>>> map = adjacencyList;
 		Vertex theSource = new Vertex(source);
 		Vertex theDestination = new Vertex(destination);
-		
-		LinkedList<Pair<Vertex, Double>> neighbor = map.get(theSource);
-		LinkedList<Pair<Vertex, Double>> neighborReturn = map.get(theDestination);
-		
 		Pair<Vertex, Double> pair = new Pair<Vertex, Double>(theSource, weight);
 		Pair<Vertex, Double> reversePair = new Pair<Vertex, Double>(theDestination, weight);
-		neighbor.add(reversePair);
-		neighborReturn.add(pair);
-
+		adjacencyList.get(source).add(reversePair);
+		adjacencyList.get(destination).add(pair);
 	}
 
 	/**
@@ -64,15 +58,13 @@ public class Graph {
 	 * 
 	 * @return an ArrayList of neighbors from the source
 	 */
-	public ArrayList<Pair<Vertex, Double>> findNeighbors(Vertex source) {
-		Map<Vertex, LinkedList<Pair<Vertex,Double>>> map = adjacencyList;
+	public ArrayList<Pair<Vertex, Double>> findNeighbors(int source) {
 		ArrayList<Pair<Vertex, Double>> neighbors = new ArrayList<Pair<Vertex, Double>>();
-		for (Pair<Vertex, Double> current : map.get(source)) {
+		for (Pair<Vertex, Double> current : adjacencyList.get(source)) {
 			neighbors.add(current);
 		}
 		return neighbors;
 	}
-
 	/**
 	 * Loads the the data from the file for testing and saves into the graph
 	 * 
@@ -122,7 +114,8 @@ public class Graph {
 
 	public Vertex Prim(double weight, int vertex) {
 		// Queue of vertices
-		
+		adjacencyList.get(vertex);
+		Heap queue = new Heap();
 		
 	}
 
@@ -160,28 +153,14 @@ public class Graph {
 	@Override
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();
-/*		Map<Vertex, LinkedList<Pair<Vertex,Double>>> map = adjacencyList;
-		Set set = adjacencyList.entrySet();
-		Iterator i = set.iterator();
-		while(i.hasNext()) {
-			Map.Entry entry = (Map.Entry)i.next();
-			Vertex current = (Vertex) entry.getKey();
-			stringBuilder.append(current.key + ": ");
-			for(Pair<Vertex,Double> pair: (LinkedList) entry.getValue()) {
-				
-			}
-		}*/
-		
-		
-		/*
 		for (int i = 0; i < adjacencyList.size(); i++) {
 			if (adjacencyList.get(i).peek() != null) {
 				stringBuilder.append(String.format("%d: ", i));
 				for (Pair<Vertex, Double> pair : adjacencyList.get(i))
-					stringBuilder.append(String.format("(%d, %.2f) ", pair.x, pair.y));
+					stringBuilder.append(String.format("(%d, %.2f) ", pair.x.key, pair.y));
 				stringBuilder.append("\n");
 			}
-		}*/
+		}
 		return stringBuilder.toString();
 	}
 
