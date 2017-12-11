@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 
 class GraphTester {
 
+	private static final int NIL = -1;
+
 	/**
 	 * Tests the loading of a graph text file.
 	 */
@@ -34,19 +36,28 @@ class GraphTester {
 	@Test
 	void findNeighbors() {
 		Graph graph = new Graph("WeightedGraphExamples/tinyEWG.txt");
-		ArrayList<Pair> actuals = graph.findNeighbors(0);
-		ArrayList<Pair> expecteds = new ArrayList<>();
-		expecteds.add(new Pair(7, 0.16));
-		expecteds.add(new Pair(4, 0.38));
-		expecteds.add(new Pair(2, 0.26));
-		expecteds.add(new Pair(6, 0.58));
-		assertTrue(actuals.size() == expecteds.size());
-		for (int i = 0; i < actuals.size(); i++) {
-			Pair expected = expecteds.get(i);
-			Pair actual = actuals.get(i);
-			assertEquals(actual.destination, expected.destination);
-			assertEquals(actual.weight, expected.weight, 1e-15);
-		}
+		ArrayList<Integer> actuals = graph.findNeighbors(0);
+		ArrayList<Integer> expecteds = new ArrayList<>();
+		expecteds.add(7);
+		expecteds.add(4);
+		expecteds.add(2);
+		expecteds.add(6);
+		assertEquals(expecteds.size(), actuals.size());
+		for (int i = 0; i < actuals.size(); i++)
+			assertEquals(expecteds.get(i), actuals.get(i));
+	}
+
+	/**
+	 * Tests if a minimal spanning tree is generated
+	 */
+	@Test
+	void testMSTPrim() {
+		Graph graph = new Graph("WeightedGraphExamples/tinyEWG.txt");
+		graph.mstPrim(0);
+		int[] expecteds = new int[] { NIL, 7, 0, 2, 5, 7, 2, 0 };
+		assertEquals(expecteds.length, graph.getVertexMap().size());
+		for (int i = 0; i < expecteds.length; i++)
+			assertEquals(expecteds[i], graph.getVertexMap().get(i).parent);
 	}
 
 	/**
@@ -54,14 +65,6 @@ class GraphTester {
 	 */
 	// @Test
 	void testDFS() {
-
-	}
-
-	/**
-	 * Tests to find the minimum spanning tree
-	 */
-	// @Test
-	void testPrim() {
 
 	}
 

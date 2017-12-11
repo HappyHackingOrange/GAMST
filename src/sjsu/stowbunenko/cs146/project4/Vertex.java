@@ -8,8 +8,9 @@ package sjsu.stowbunenko.cs146.project4;
 public class Vertex {
 	
 	double key;
-	Vertex parent;
-//	Vertex child;
+	int parent;
+	static final int NIL = -1;
+	boolean visited;
 
 	/**
 	 * This contains the beginning and ending vertices
@@ -18,8 +19,8 @@ public class Vertex {
 	 */
 	public Vertex() {
 		key = Double.POSITIVE_INFINITY;
-		parent = null;
-//		child = null;
+		parent = NIL;
+		visited = false;
 	}
 	
 	/**
@@ -28,6 +29,18 @@ public class Vertex {
 	 */
 	public Vertex(double key) {
 		this.key = key;
+		parent = NIL;
+		visited = false;
+	}
+	
+	// Getters and setters
+
+	public boolean isVisited() {
+		return visited;
+	}
+
+	public void setVisited(boolean visited) {
+		this.visited = visited;
 	}
 	
 }

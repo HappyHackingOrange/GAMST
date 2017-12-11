@@ -18,4 +18,17 @@ public class Pair {
 		this.weight = weight;
 	}
 	
+	
+	public int compareTo(Pair that) {
+		if(weight < that.weight)
+			return -1;
+		else if (weight > that.weight)
+			return 1;
+		return 0;
+	}
+	
+	public boolean equals(Object that) {
+		return this.compareTo((Pair)that) == 0;
+	}
+	
 }
