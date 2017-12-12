@@ -65,7 +65,9 @@ class GraphTester {
 	 */
 	// @Test
 	void testDFS() {
-
+		Graph graph = new Graph("WeightedGraphExamples/tinyEWG.txt");
+		boolean actual = graph.isPartOfCycle(graph.getEdgeList().get(6));
+		assertEquals(true,actual);
 	}
 
 	/**
@@ -73,6 +75,34 @@ class GraphTester {
 	 */
 	// @Test
 	void testnewAlgorithm() {
-
+		Graph graph = new Graph("WeightedGraphExamples/tinyEWG.txt");
+		StringBuilder strBldr = new StringBuilder();
+		strBldr.append("0: (2, 0.26) (7, 0.16) \n");
+		strBldr.append("1: (7, 0.19) \n");
+		strBldr.append("2: (6, 0.40) (0, 0.26) (3, 0.17) \n");
+		strBldr.append("3: (2, 0.17) \n");
+		strBldr.append("4: (5, 0.35) \n");
+		strBldr.append("5: (4, 0.35) (7, 0.28) \n");
+		strBldr.append("6: (2, 0.40) \n");
+		strBldr.append("7: (5, 0.28) (1, 0.19) (0, 0.16) \n");
+		
+	}
+	
+	/**
+	 * Tests if the two algorithms have the same list
+	 */
+	@Test
+	void sameMST() {
+		Graph graph = new Graph("WeightedGraphExamples/tinyEWG.txt");
+		Graph graph2 = new Graph("WeightedGraphExamples/tinyEWG.txt");
+		graph.mstPrim(0);
+		graph2.newAlgorithm();
+		boolean same = false;
+		for(int i = 0; i < graph.getAdjacencyList().size(); i++) {
+			same = graph.getAdjacencyList().get(i).containsAll(graph.getAdjacencyList().get(i));
+			assertEquals(true,same);
+		}
+		
+		
 	}
 }

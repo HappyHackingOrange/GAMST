@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Set;
 import java.util.Stack;
 import java.util.TreeSet;
 
@@ -40,6 +41,7 @@ public class Graph {
 		load(new File(filename));
 	}
 
+	
 	/**
 	 * Add a weighted edge to the graph.
 	 * 
@@ -204,7 +206,10 @@ public class Graph {
 		Heap queue = new Heap(vertexMap);
 		Vertex root = vertexMap.get(rootIndex);
 		root.key = 0;
+		long start = System.currentTimeMillis();
+		long end = System.currentTimeMillis();
 		while (queue.size() != 0) {
+			start = System.currentTimeMillis();
 			int currentIndex = queue.extractMin();
 			for (int nextIndex : findNeighbors(currentIndex)) {
 				Vertex nextVertex = vertexMap.get(nextIndex);
@@ -215,9 +220,13 @@ public class Graph {
 				}
 			}
 			System.out.printf("Creating MST... %.2f%% done!%n", (1 - (double) queue.size() / vertexMap.size()) * 100);
+			end = System.currentTimeMillis();
+			System.out.println("Time between each loop: " + (end-start));
 		}
-		for (int i = 1; i < vertexMap.size(); i++)
-			addEdge(newAdjacencyList, i, vertexMap.get(i).parent, getWeight(i, vertexMap.get(i).parent));
+		for (int i = 0; i < vertexMap.size(); i++) {
+			if(vertexMap.get(i).parent != NIL)
+				addEdge(newAdjacencyList, i, vertexMap.get(i).parent, getWeight(i, vertexMap.get(i).parent));
+		}
 
 		adjacencyList = newAdjacencyList;
 	}
@@ -242,7 +251,10 @@ public class Graph {
 	 */
 	public void newAlgorithm() {
 		sortEdges();
+		long start = System.currentTimeMillis();
+		long end = System.currentTimeMillis();
 		for (int i = 0; i < edgeList.size(); i++) {
+			start = System.currentTimeMillis();
 			for (Vertex vertex : vertexMap.values())
 				vertex.setVisited(false);
 			int source = edgeList.get(i).v1;
@@ -252,6 +264,8 @@ public class Graph {
 			if (!isPartOfCycle(edgeList.get(i)))
 				addEdge(source, destination, weight);
 			System.out.printf("Creating MST... %.2f%% done!%n", (double) i * 100 / edgeList.size());
+		end = System.currentTimeMillis();
+		System.out.println("\n Time between each loop: " + (end-start));
 		}
 		System.out.println("Creating MST... 100% done!");
 	}
@@ -284,13 +298,23 @@ public class Graph {
 	public HashMap<Integer, Vertex> getVertexMap() {
 		return vertexMap;
 	}
+	
+	public ArrayList<LinkedList<Pair>> getAdjacencyList(){
+		return adjacencyList;
+	}
+	
+	public ArrayList<Edge> getEdgeList(){
+		return edgeList;
+	}
 
 	public static void main(String[] args) {
-		Graph graph = new Graph("WeightedGraphExamples/largeEWG.txt");
-//		graph.newAlgorithm();
-		graph.mstPrim(0);
-		System.out.println(graph.toString());
-
+		Graph graph = new Graph("WeightedGraphExamples/tinyEWG.txt");
+		boolean isCycle = graph.isPartOfCycle(graph.getEdgeList().get(6));
+		System.out.println(isCycle);
+		
+		
+		
+		
 	}
 
 }
