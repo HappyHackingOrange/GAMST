@@ -309,8 +309,8 @@ public class Graph {
 
 	public static void main(String[] args) {
 		Graph graph = new Graph("WeightedGraphExamples/tinyEWG.txt");
-		boolean isCycle = graph.isPartOfCycle(graph.getEdgeList().get(6));
-		System.out.println(isCycle);
+		graph.newAlgorithm();
+		System.out.println(graph.toString());
 	}
 
 }

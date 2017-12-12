@@ -63,7 +63,7 @@ class GraphTester {
 	/**
 	 * Tests for Depth-First Search and the order it finds its neighbors
 	 */
-	// @Test
+	@Test
 	void testDFS() {
 		Graph graph = new Graph("WeightedGraphExamples/tinyEWG.txt");
 		boolean actual = graph.isPartOfCycle(graph.getEdgeList().get(6));
@@ -73,9 +73,10 @@ class GraphTester {
 	/**
 	 * Tests the new algorithm which incorporates DFS
 	 */
-	// @Test
+	@Test
 	void testnewAlgorithm() {
 		Graph graph = new Graph("WeightedGraphExamples/tinyEWG.txt");
+		graph.newAlgorithm();
 		StringBuilder strBldr = new StringBuilder();
 		strBldr.append("0: (2, 0.26) (7, 0.16) \n");
 		strBldr.append("1: (7, 0.19) \n");
@@ -85,6 +86,7 @@ class GraphTester {
 		strBldr.append("5: (4, 0.35) (7, 0.28) \n");
 		strBldr.append("6: (2, 0.40) \n");
 		strBldr.append("7: (5, 0.28) (1, 0.19) (0, 0.16) \n");
+		assertEquals(strBldr.toString(), graph.toString());
 		
 	}
 	
@@ -93,8 +95,8 @@ class GraphTester {
 	 */
 	@Test
 	void sameMST() {
-		Graph graph = new Graph("WeightedGraphExamples/tinyEWG.txt");
-		Graph graph2 = new Graph("WeightedGraphExamples/tinyEWG.txt");
+		Graph graph = new Graph("WeightedGraphExamples/mediumEWG.txt");
+		Graph graph2 = new Graph("WeightedGraphExamples/mediumEWG.txt");
 		graph.mstPrim(0);
 		graph2.newAlgorithm();
 		boolean same = false;
