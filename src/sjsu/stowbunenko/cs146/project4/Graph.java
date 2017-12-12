@@ -216,6 +216,7 @@ public class Graph {
 			}
 			System.out.printf("Creating MST... %.2f%% done!%n", (1 - (double) queue.size() / vertexMap.size()) * 100);
 		}
+
 		for (int i = 0; i < vertexMap.size(); i++)
 			if (vertexMap.get(i).parent != NIL)
 				addEdge(newAdjacencyList, i, vertexMap.get(i).parent, getWeight(i, vertexMap.get(i).parent));
