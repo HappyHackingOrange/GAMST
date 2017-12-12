@@ -216,8 +216,9 @@ public class Graph {
 			}
 			System.out.printf("Creating MST... %.2f%% done!%n", (1 - (double) queue.size() / vertexMap.size()) * 100);
 		}
-		for (int i = 1; i < vertexMap.size(); i++)
-			addEdge(newAdjacencyList, i, vertexMap.get(i).parent, getWeight(i, vertexMap.get(i).parent));
+		for (int i = 0; i < vertexMap.size(); i++)
+			if (vertexMap.get(i).parent != NIL)
+				addEdge(newAdjacencyList, i, vertexMap.get(i).parent, getWeight(i, vertexMap.get(i).parent));
 
 		adjacencyList = newAdjacencyList;
 	}
@@ -286,8 +287,8 @@ public class Graph {
 	}
 
 	public static void main(String[] args) {
-		Graph graph = new Graph("WeightedGraphExamples/largeEWG.txt");
-//		graph.newAlgorithm();
+		Graph graph = new Graph("WeightedGraphExamples/10000EWG.txt");
+		// graph.newAlgorithm();
 		graph.mstPrim(0);
 		System.out.println(graph.toString());
 
